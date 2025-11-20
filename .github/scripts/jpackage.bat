@@ -1,4 +1,4 @@
-for /F %%i in ('%JAVA_HOME%\bin\jdeps --module-path %JAVAFX_HOME% --print-module-deps --ignore-missing-deps %GITHUB_WORKSPACE%/app/target/lib/WaterZuivering-%APP_VERSION%-all.jar') do SET JDEPS_MODULES=%%i
+for /F %%i in ('%JAVA_HOME%\bin\jdeps --module-path %JAVAFX_HOME% --print-module-deps --ignore-missing-deps %GITHUB_WORKSPACE%/target/lib/WaterZuivering-%APP_VERSION%-all.jar') do SET JDEPS_MODULES=%%i
 
 REM jdeps doesn't include JavaFX modules in Windows
 set JAVAFX_MODULES=javafx.fxml,javafx.media,javafx.swing,javafx.web
@@ -7,12 +7,12 @@ REM set MODULES=java.desktop,java.logging,java.naming,java.prefs,java.security.j
 %JAVA_HOME%\bin\jlink ^
 --module-path %JAVAFX_HOME% ^
 --add-modules %JDEPS_MODULES%,%JAVAFX_MODULES% ^
---output app/target/runtime ^
+--output target/runtime ^
 --strip-debug --compress zip-6 --no-header-files --no-man-pages
 
 %JPACKAGE_HOME%\bin\jpackage ^
 --app-version %APP_VERSION% ^
---input app/target/lib ^
+--input target/lib ^
 --license-file LICENSE.txt ^
 --main-jar WaterZuivering-%APP_VERSION%-all.jar ^
 --main-class %MAIN_CLASS% ^
@@ -20,7 +20,7 @@ REM set MODULES=java.desktop,java.logging,java.naming,java.prefs,java.security.j
 --description "Waterzuivering" ^
 --vendor Gluon ^
 --verbose ^
---runtime-image app/target/runtime ^
+--runtime-image target/runtime ^
 --dest %INSTALL_DIR% ^
 --type msi ^
 --java-options "-Djavafx.allowjs=true" ^
