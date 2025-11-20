@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: WaterZuivering-1.0.msi
-          path: app/target/install/*.msi
+          path: target/install/*.msi
 
 
 
